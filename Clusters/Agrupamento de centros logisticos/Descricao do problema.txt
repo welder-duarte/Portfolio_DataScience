@@ -1,0 +1,7 @@
+Uma empresa e-commerce vai abrir em 2024 10 novos centros de triagem e distriuição dos pacotes vendidos através da plataforma. Os novos "CDs" serão todos no estado de São Paulo.
+
+O problema consiste em tentar distruibuir da melhor forma, a gestão de todos esses "CDs" em 4 gerentes regionais.
+
+Essa empresa também exige que esses gerentes visitem todas as unidades de sua responsabilidade, ao menos 1x por mês.
+
+Para esse problema usaremos clusterização k-means para agrupar as unidades em 4 grupos e na sequência, faremos TSP (Travelling Salesman Problem) para indicar o melhor trajeto para as visitas mensaais.
