@@ -11,7 +11,7 @@ garantindo uma gestão eficiente e reduzindo ao máximo a necessidade de grandes
 - ``Jupter Notebook (Anaconda)``
 - ``Python (Pandas, Numpy)``
 - ``APIs Google Maps (Geocode, Distance Matrix)``
-- ``Sklearn (Kmeans)``
+- ``Sklearn (K-means)``
 - ``Folium (Mapas)``
 - ``Or-tolls (TSP)``
 
