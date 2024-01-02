@@ -1,5 +1,5 @@
 ### Clusterização de Centros logísticos e TSP [^1]
-Esse projeto foi desenvolvido para explorar um problema real.
+Esse projeto foi desenvolvido para explorar um problema real de otmização.
 
 #### *O Problema*
 Com o objetivo de expandir suas operações em São Paulo, uma empresa de logística planeja abrir novos Centros de Distribuição (CDs). 
@@ -15,7 +15,7 @@ garantindo uma gestão eficiente e reduzindo ao máximo a necessidade de grandes
 - ``Folium (Mapas)``
 - ``Or-tolls (TSP)``
 
-#### Detalhamento
+#### *Detalhamento*
 A partir de uma lista de cidades, buscamos as latitudes e longitudes na API do Google Maps (Geocode), para então podemos realizar a clusterização.
 
 ![Mapa1](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/60ec8dae-ba8c-48ea-94ab-a004aa0fd571)
