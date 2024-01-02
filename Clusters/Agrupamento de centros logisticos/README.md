@@ -44,5 +44,4 @@ Com base nesse resultado, será possível a empresa planejar de forma mais efici
 O objetivo é minimizar a distância total percorrida, considerando as distâncias entre todas as cidades.
 
 [^2]: TSP da biblioteca OR-Tools do Google utiliza a Teoria dos Grafos para definir a sequência de pontos a serem percorridas, priorizando a menor distância.
-As distâncias entre as cidades obtidas através da API do Google Maps, levam em consideração o trajeto rodoviário e não em linha reta, dessa forma, pontos próximos no mapa não são 
-necessariamente a menor distancia entre eles.
+As distâncias entre as cidades obtidas através da API do Google Maps, levam em consideração o trajeto rodoviário e não uma linha reta entre as cidades, dessa forma, pontos próximos no mapa não são necessariamente a menor distância entre eles.
