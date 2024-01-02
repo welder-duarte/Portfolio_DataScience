@@ -20,21 +20,20 @@ A partir de uma lista de cidades, buscamos as latitudes e longitudes na API do G
 
 ![Mapa1](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/60ec8dae-ba8c-48ea-94ab-a004aa0fd571)
 
-Após a clusterização com K-means, dividindo as cidades em 4 clusters (pois serão 4 gerentes regionais) temos esse resultado:
+Após a clusterização com K-means, dividindo as cidades em 4 clusters (pois serão 4 gerentes regionais) chegamos nesse resultado, com centróides gerados em preto. Adicionei também curcunferências com raios de 150 km para dar uma noção melhor da área de deslocamento em cada cluster:
 
 ![Mapa2 - Clusterizado](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/246a1a47-4c36-41c0-973c-4e57b6d93e9b)
-###### Adicionei curcunferências com raios de 150 km para dar uma noção melhor da área de deslocamento em cada cluster.
 
 Com os clusters definidos, foi preciso fazer um pequeno ajuste na base de dados, pois o algoritmo de k-means cria centróides em pontos que não existiam inicialmente, 
-uma vez que o K-means busca minimizar as distãncias de cada ponto em relação ao seu centróide. Sabendo disso, definimos como cidade "base" do gerente a cidade da lista inicial
+uma vez que o K-means busca minimizar as distâncias de cada ponto em relação ao seu centróide. Sabendo disso, definimos como cidade "base" do gerente a cidade da lista inicial
 mais próxima ao centróide do k-means. Essas cidades "base" serão os ponto iniciais e finais para o TSP.
 
 Dessa forma podemos aplicar TSP, para buscar uma rota mais otimizada  [^2] de modo que os gerentes possam visitar todas as 
-unidaes de sua responsabilidade e retornar à sua cidade base (marcadores em preto no mapa). Podemos ver a sequência da rota encontrada nos marcadores do mapa.
+unidades de sua responsabilidade e retornar à sua cidade base (marcadores em preto no mapa). Podemos ver a sequência da rota encontrada nos marcadores do mapa.
 
 ![Mapa3 - Roteirizado](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/3c861dc8-1afb-4a5d-a9f0-712685639b78)
 
-Por fim, a distancia total de deslocamento obtido para cada cluster, partindo de suas cidades "bases" e retornando à elas.
+Por fim, a distância total de deslocamento obtido para cada cluster, partindo de suas cidades "bases" e retornando à elas ao final.
 
 Com base nesse resultado, será possível a empresa planejar de forma mais eficiente o itinerário de cada gerente, com pontos de parada e hotéis para pernoite.
 
