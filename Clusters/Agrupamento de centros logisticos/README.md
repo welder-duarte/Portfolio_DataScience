@@ -41,11 +41,6 @@ Com base nesse resultado, será possível a empresa planejar de forma mais efici
 ![Final](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/aff4058e-09e2-4e6b-b6c4-d27b9a5893d8)
 
 
-#### 📁 Acesso ao projeto
-Você pode acessar os arquivos do projeto clicando [aqui](https://github.com/welder-duarte/Portfolio_DataScience/tree/master/Clusters/Agrupamento%20de%20centros%20logisticos)!
-
-
-
 [^1]: O Problema do Caixeiro Viajante (TSP - Traveling Salesman Problem) é um desafio de otimização combinatória em que se busca encontrar o caminho mais curto que um vendedor (caixeiro) deve percorrer, passando por todas as cidades uma única vez e retornando à cidade de origem. 
 O objetivo é minimizar a distância total percorrida, considerando as distâncias entre todas as cidades.
 
