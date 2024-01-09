@@ -58,7 +58,7 @@ Agrupando a base de dados pelos clusters e analisando as médias de cada variáv
 
 ![Resultados clusters](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/d8e714d0-afd1-4ffa-b0c5-1df346e667e2)
 
-Com base na tabela acima podemos obervar que as variáveis partidas, gols e vitórias são as mais significativas quando se trata 
+Com base na tabela acima podemos obervar que as variáveis partidas, gols e taxa de vitórias são as mais significativas quando se trata 
 de separar os grupos, dessa forma, podemos plotar um gráfico para nos ajudar a analisar os grupos de forma visual 
 (taxa vitórias x partidas disputadas, com tamanho das bolhas = gols marcados):
 
