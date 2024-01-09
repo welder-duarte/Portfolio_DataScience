@@ -83,9 +83,8 @@ Grupo com 26,5% dos jogadores (2651 de 10k).
 Apresentam os piores números de gols marcados e vitórias, embora tenham disputado quase a mesma quantidade de partidas do grupo 0.
 
 SUGESTÃO: Por se tratar de um grupo de jogares iniciantes, campeonatos rápidos e partidas livres (amistosos) podem ser interessante 
-para adiquirem experiência no game.
+para adquirirem experiência no game.
 
 
 [^1]: PCA = Principal Component Analysis. Método que permite transformar um conjunto de dados de alta dimensionalidade (muitas variáveis) 
-em um novo conjunto, fornecendo uma visualização em dimensões mais baixas dos mesmos dados, utilizando a informação contida na matriz de covariância 
-dos dados.
+em um novo conjunto, fornecendo uma visualização em dimensões mais baixas dos mesmos dados, utilizando a informação contida na matriz de covariância dos dados.
