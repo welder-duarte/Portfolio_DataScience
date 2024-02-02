@@ -2,10 +2,10 @@
 Esse projeto foi desenvolvido para explorar aplicações de EDA (Análise Exploratória de Dados).
 
 #### *O Problema*
-Com objetivo aplicar conceitos de EDA em uma base de dados real, coletamos dados de anúncios de vendas de imóvels de uma página 
+Com objetivo aplicar conceitos de EDA em uma base de dados real, coletamos dados de anúncios de vendas de imóvels em uma página 
 de uma imobiliaria com web scraping e paralelismo, uma vez que essa tarefa tende a ser demorada. Após a coleta, limpeza e estruturação dos dados,
 partimos para a analise exploratória, buscando entender:
-- Distribuição de preços dos imóveis.
+- Distribuição de preços dos imóveis por tipo.
 - Distribuição geográfica dos imóveis na cidade.
 - Relação entre o número de quartos, banheiros, e vagas de garagem com os preços.
 - Identificação dos bairros mais caros e mais acessíveis.
@@ -16,6 +16,7 @@ partimos para a analise exploratória, buscando entender:
 - ``BeautifulSoup (Scraping)``
 - ``Concurrent.futures (Paralelismo)``
 - ``Modularização das funções (functions_proj_scraping)``
+- ``Dtype-diet (Otimização de tipagem)``
 
 #### *Detalhamento*
 
