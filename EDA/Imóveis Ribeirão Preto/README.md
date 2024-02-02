@@ -1,4 +1,4 @@
-### Anúncios de imóveis em Ribeirão Preto
+### Anúncios de imóveis em Ribeirão Preto (Web Scraping + Paralelismo)
 Esse projeto foi desenvolvido para explorar aplicações de EDA (Análise Exploratória de Dados).
 
 #### *O Problema*
