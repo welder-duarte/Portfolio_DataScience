@@ -77,7 +77,6 @@ def gerando_soup_anuncio(url: str):
     Returns:
     - Retorna um objeto BeautifulSoup se a solicitação for bem-sucedida, caso contrário, retorna 0.
     """
-  
     # Headers - Informações para fingir ser um navegador
     header = {'User-Agent':'Mozilla/5.0'}
 
@@ -92,6 +91,31 @@ def gerando_soup_anuncio(url: str):
 
 
 ##### TRATAMENTOS DOS DADOS
+
+# FUNCAO PARA SEPARAR ITENS DO IMOVEL E DO CONDOMINIO EM NOVOS DFS
+def separa_itens(base: DataFrame, coluna: str):
+    """
+    Gera novos dataframes a partir de uma lista de itens.
+
+    Parameters:
+    - base (DataFrame): Base com os dados.
+    - coluna (str): Nome da coluna para ser dividida.
+
+    Returns:
+    - Retorna um dataframe com os itens listados em linhas.
+    """
+    texto = base[coluna].astype(str).str.lower().apply(unidecode).str.replace('[','').str.replace(']','').str.strip()
+    df = texto.str.split(',', expand=True)
+    df['id'] = base['id']
+    df = df.melt(id_vars=['id'], value_name='itens')
+    df.dropna(subset=['itens'], inplace=True)
+    excluir = df[(df['itens'] == '') | (df['itens'] == '\t')]
+    df.drop(excluir.index, inplace=True)
+    df.drop(columns='variable', inplace=True)
+    df.sort_values(by='id', inplace=True)
+    df.reset_index(inplace=True, drop=True)
+    
+    return df
 
 # FUNCAO PARA REMOVER OUTLIERS EM VARIAVEIS NUMERICAS
 def remove_outliers(base: DataFrame, threshold=3):
@@ -109,7 +133,7 @@ def remove_outliers(base: DataFrame, threshold=3):
     colunas = []
 
     for coluna, tipos in dados.items():
-        if tipos in typ:
+        if tipos in typ and coluna != 'registros':
             z_scores = np.abs((base[coluna] - base[coluna].mean()) / base[coluna].std())
             base = base[z_scores < threshold]
 
@@ -144,9 +168,9 @@ def tipagem(base: DataFrame):
     return base
     
 # FUNCAO QUE CORRIGE LINK EM CASO DE ERRO DE UNIDECODE
-def safeStr(obj):
+def safeStr(obj: object) -> str:
     """
-    Converte um objeto para uma string segura (sem erros de encode).
+    Converte um link para uma string segura (sem erros de encode).
 
     Parameters:
     - obj: Objeto a ser convertido.
@@ -161,26 +185,38 @@ def safeStr(obj):
     
     
 # FUNCAO PARA FORMATAR TEXTOS (LABELS DE COLUNAS)
-def formata_textos(texto: str, header: str):
+def formata_textos(texto: str, func: str):
     """
-    Transforma e formata uma string, removendo acentuações e convertendo para minúsculas.
+    Transforma e formata uma string, removendo acentuações e convertendo para minúsculas, de acordo com a função informada.
 
     Parameters:
     - texto: Texto a ser tratado.
-    - header: sim = Texto compõe um cabeçalho.
+    - func: 
+        header = Texto compoe um cabecalho.
+        descricao = Texto descritivo, podendo conter telefones
+        (vazio '') = Nenhuma funcionalidade especifica, formatando apenas o basico.
 
     Returns:
     - str: String formatada.
+    - List: Lista de telefones identificados
     """
     texto = unidecode(texto).lower()
+    texto = re.sub(r'\s$','', texto)
+    texto = re.sub(r'\s\s+',' ', texto)
+    list_tel = []
     
-    if header == 'sim':
+    if func == 'header':
         texto = re.sub('dormitorio[s]?','quartos',texto)
         texto = re.sub('banheiro[s]?','banheiros',texto)
         texto = re.sub('garage[mn][s]?','vagas',texto)
         texto = re.sub(' ','_',texto)
-    
-    return texto
+    elif func == 'descricao':
+        texto = re.sub(r'[^\w\,]',' ', texto)
+        texto = re.sub(r'(?<=\d)\s{1,4}(?=\d)','',texto)
+        list_tel = re.findall(r'(?:(\d{2}\s+?\d{9}|\d{10,11}|\d{2}\s+?\d{8}|\d{2}\s+?\d{4,5}\s?\d{4}|\d{6,7}\s+?\d{4,5}))', texto)
+        list_tel = [re.sub(r'\s','', tel) for tel in list_tel]
+        
+    return texto, list_tel
 
 # FUNCAO PARA AJUSTAR VALORES NUMERICOS, REMOVENDO STRINGS E CONVERTENDO FLOAT/INT
 def ajusta_valores(chave: str, valor: str):
@@ -238,21 +274,23 @@ def dados_pag_principal(anuncio: str, pag: int):
 
     # Bairro e Cidade
     texto = anuncio.find('div', {'class':'property_details'}).find('span').get_text().replace('\t','').strip().split('\n')
-    dados['bairro'] = texto[0]
-    dados['cidade'] = texto[1]
+    dados['bairro'] = formata_textos(texto[0],'')[0]
+    dados['cidade'] = formata_textos(texto[1],'')[0]
 
     # Dormitorios, banheiros e garagem
     texto = anuncio.findAll('li', {'class':'tooltip'})
     itens_de_interesse = ['quartos','banheiros','vagas']
     for item in texto:
         texto = item.get('title')[:-4].strip()
-        texto = formata_textos(texto,'sim')
+        texto = formata_textos(texto,'header')[0]
         if texto in itens_de_interesse:
             dados[texto] = int(item.get_text())
 
     # Descricao
     texto = anuncio.find('div', {'class':'property_details_desc'}).find('p').get_text()
-    dados['descricao'] = formata_textos(texto,'')
+    x = formata_textos(texto,'descricao')
+    dados['descricao'] = x[0]
+    dados['telefones'] = x[1]
 
     # link da pagina e foto da capa
     texto = anuncio.find('div', {'class':'img_holder'})('a')
@@ -284,7 +322,7 @@ def dados_pag_anuncio(anuncio: str, index: int):
         texto = anuncio.findAll('div', {'class':'single_input'})
         for item in texto:
             chave = item.find('span').get_text()
-            chave = formata_textos(chave,'sim')
+            chave = formata_textos(chave,'header')[0]
 
             if chave == 'quartos':
                 chave = 'suites'
