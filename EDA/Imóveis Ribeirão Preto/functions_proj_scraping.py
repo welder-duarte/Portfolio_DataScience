@@ -273,9 +273,9 @@ def dados_pag_principal(anuncio: str, pag: int):
     dados['valor'] = ajusta_valores('valor', texto)
 
     # Bairro e Cidade
-    texto = anuncio.find('div', {'class':'property_details'}).find('span').get_text().replace('\t','').strip().split('\n')
-    dados['bairro'] = formata_textos(texto[0],'')[0]
-    dados['cidade'] = formata_textos(texto[1],'')[0]
+    #texto = anuncio.find('div', {'class':'property_details'}).find('span').get_text().replace('\t','').strip().split('\n')
+    #dados['bairro'] = formata_textos(texto[0],'')[0]
+    #dados['cidade'] = formata_textos(texto[1],'')[0]
 
     # Dormitorios, banheiros e garagem
     texto = anuncio.findAll('li', {'class':'tooltip'})
@@ -353,7 +353,21 @@ def dados_pag_anuncio(anuncio: str, index: int):
             dados['itens_do_condominio'] = list_itens_cond
         except:
             dados['itens_do_condominio'] = []
-        
+            
+            
+        try:
+            # Pegando dados de bairro, zona e cidade
+            texto = formata_textos(anuncio.findAll('ul', {'class':'nova-desc'})[0].get_text(), '')[0]
+            texto = texto.replace('\nlocalizacao: ', '').split(',')
+            dados['bairro'] = texto[0].strip()
+            
+            texto2 = texto[-1].strip()
+            texto2 = texto2.split(' em ')
+            dados['zona'] = texto2[0].strip()
+            dados['cidade'] = texto2[-1].replace('/', '-').strip()
+        except:
+            pass
+            
     except:
         return 'erro'
     
