@@ -7,8 +7,10 @@ de uma imobiliaria com web scraping e paralelismo, uma vez que essa tarefa tende
 partimos para a analise exploratória, buscando entender:
 - Distribuição de preços dos imóveis por tipo.
 - Distribuição geográfica dos imóveis na cidade.
-- Relação entre o número de quartos, banheiros, e vagas de garagem com os preços.
+- Relação da região do imóvel com os preços.
 - Identificação dos bairros mais caros e mais acessíveis.
+- Relação entre o número de quartos com os preços.
+- Valores dos imóveis pelo tipo e quantidade de itens (lazer, segurança, condomínio).
 
 #### *Técnicas e tecnologias utilizadas:*
 - ``Jupter Notebook (Anaconda)``
@@ -17,13 +19,10 @@ partimos para a analise exploratória, buscando entender:
 - ``Concurrent.futures (Paralelismo)``
 - ``Modularização das funções (functions_proj_scraping)``
 - ``Dtype-diet (Otimização de tipagem)``
+- ``Api Google Maps (Definição de Lat e Long dos bairros)``
 
-#### *Detalhamento*
+#### *Link para Dashboard*
 
+https://public.tableau.com/views/EDAImoveisemRibeiraoPreto/EDAimoveisRibeiroPreto?:language=pt-BR&publish=yes&:sid=&:display_count=n&:origin=viz_share_link
 
-
-[^1]: O Problema do Caixeiro Viajante (TSP - Traveling Salesman Problem) é um desafio de otimização combinatória em que se busca encontrar o caminho mais curto que um vendedor (caixeiro) deve percorrer, passando por todas as cidades uma única vez e retornando à cidade de origem. 
-O objetivo é minimizar a distância total percorrida, considerando as distâncias entre todas as cidades.
-
-[^2]: TSP da biblioteca OR-Tools do Google utiliza a Teoria dos Grafos para definir a sequência de pontos a serem percorridas, priorizando a menor distância.
-As distâncias entre as cidades obtidas através da API do Google Maps, levam em consideração o trajeto rodoviário e não uma linha reta entre as cidades, dessa forma, pontos próximos no mapa não são necessariamente a menor distância entre eles.
+![EDA imoveis Ribeirão Preto](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/b1278df7-18ca-4cda-9887-d8a510eadc80)
