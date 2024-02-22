@@ -18,6 +18,8 @@ O repositório é organizado em pastas, separados por temas/áreas e em cada pas
 - Scikit-learn, TensorFlow, Keras, Or-Tolls
 - Jupyter Notebooks
 - APIs (Google Maps, por exemplo)
+- Paralelismo
+- Web Scraping
 
 ## Contribuições
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues, enviar pull requests ou fornecer sugestões para melhorias.
