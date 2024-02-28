@@ -21,6 +21,22 @@ partimos para a analise exploratória, buscando entender:
 - ``Dtype-diet (Otimização de tipagem)``
 - ``Api Google Maps (Definição de Lat e Long dos bairros)``
 
+#### *Análise*
+A amostra de dados apresenta 7.885 registros pré-processados, porém, alguns anúncios ainda apresentavam informações incoerentes a respeito
+da localização, de valores ou metragens, sendo necessário a exclusão diretamente no dashboard, ficando a base então com 7.767 registros.
+
+Apartamentos:
+- Representam a maior parte dos anúncios 70,5%
+- Distribuição de preço m² fica entre R$ 3.315 (inf) e R$ 6.219 (sup) com mediana de R$ 4.475
+- Na zona norte (- valorizada) os valores estão 39,7% abaixo em relação à zona sul (+ valorizada). Obs: comparação entre medianas
+- Unidades com 1 quarto apresentam maiores valores, chegando a +26,5% em relação a unidades com 2/3 quartos e +20% em relação a 4/5 quartos
+- Distribuição de metragens fica entre 72m² (inf) e 175m² (sup) com mediana de 122,5m²
+- Top 5 bairros mais caros: todos estão na região sul da cidade (+ valorizada)
+- Top 5 bairros mais acessíveis: Distribuição entre Norte, Oeste e Leste. Região Central não aparece nos TOPs
+- Itens de mais comuns ofertados nas unidades são: Sala de estar, box, sacada, armario, ventilador de teto, iluminação e ar condicionado
+- Foi possível observar que a quantidade de itens de lazer não afeta os valores ofertados nos anúncios. O mesmo não ocorre em relação a itens de segurança e codomínio ou itens do imóvel, onde quanto mais itens ofertados, maior o preço do m² dos anúncios
+
+
 #### *Link para Dashboard*
 
 https://public.tableau.com/views/EDAImoveisemRibeiraoPreto/EDAimoveisRibeiroPreto?:language=pt-BR&publish=yes&:sid=&:display_count=n&:origin=viz_share_link
