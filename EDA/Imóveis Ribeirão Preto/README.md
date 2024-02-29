@@ -1,7 +1,7 @@
 ### **Anúncios de imóveis em Ribeirão Preto (Web Scraping + Paralelismo)**
 Esse projeto foi desenvolvido para explorar aplicações de EDA (Análise Exploratória de Dados).
 
-#### *O Problema*
+#### *O Problema:*
 Com objetivo aplicar conceitos de EDA em uma base de dados real, coletamos dados de anúncios de vendas de imóvels em uma página 
 de uma imobiliaria com web scraping e paralelismo, uma vez que essa tarefa tende a ser demorada. Após a coleta, limpeza e estruturação dos dados,
 partimos para a analise exploratória e visual, buscando entender:
@@ -22,7 +22,7 @@ partimos para a analise exploratória e visual, buscando entender:
 - ``Api Google Maps (Definição de Lat e Long dos bairros)``
 - ``Tableau Public (Dataviz)``
 
-#### *Análise*
+#### *Análise:*
 A amostra de dados apresenta 7.885 registros pré-processados, porém, alguns anúncios ainda apresentavam informações incoerentes a respeito
 da localização, de valores ou metragens, sendo necessário a exclusão diretamente no dashboard, ficando a base então com 7.839 registros.
 
@@ -59,7 +59,7 @@ da localização, de valores ou metragens, sendo necessário a exclusão diretam
   - Itens mais comuns ofertados são (em orderm): churrasqueira, armário, piscina, ventilador, ar condicionado e portaria 24h
   - Todas as categorias de itens (do imóvel, de lazer ou de segurança) afetam os valores dos anúncios. Quanto mais itens disponíveis, maior o preço do m² dos anúncios
 
-#### *Link para Dashboard*
+#### *Link para Dashboard:*
 https://public.tableau.com/views/EDAImoveisemRibeiraoPreto/EDAimoveisRibeiroPreto?:language=pt-BR&publish=yes&:sid=&:display_count=n&:origin=viz_share_link
 
 ![EDA imoveis Ribeirão Preto](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/d8fe7981-534c-42f1-88c0-51264fe380ee)
