@@ -3,7 +3,7 @@ Esse projeto foi desenvolvido para explorar aplicações de EDA (Análise Explor
 
 #### *O Problema:*
 Com objetivo aplicar conceitos de EDA em uma base de dados real, coletamos dados de anúncios de vendas de imóveis em uma página 
-de uma imobiliaria com web scraping e paralelismo, uma vez que essa tarefa tende a ser demorada. Após a coleta, limpeza e estruturação dos dados, partimos para a analise exploratória e visual com Tableu, buscando entender:
+de uma imobiliaria com web scraping e paralelismo, uma vez que essa tarefa tende a ser demorada. Após a coleta, limpeza e estruturação dos dados, partimos para a analise exploratória e visual com Tableau, buscando entender:
 - Distribuição de preços dos imóveis por tipo.
 - Distribuição geográfica dos imóveis na cidade.
 - Relação da região do imóvel com os preços.
