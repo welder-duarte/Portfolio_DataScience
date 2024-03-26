@@ -1,0 +1,57 @@
+# CODIGO PARA LANCAR VM VIA SHELL GCP (PODE SER FEITO PELO CONSOLE TAMBÉM)
+gcloud compute instances create nome_vm --project=id_projeto --zone=regiao_escolhida --machine-type=e2-medium --network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default --maintenance-policy=MIGRATE --provisioning-model=STANDARD --service-account=961854268785-compute@developer.gserviceaccount.com --scopes=https://www.googleapis.com/auth/monitoring.write,https://www.googleapis.com/auth/devstorage.full_control,https://www.googleapis.com/auth/compute,https://www.googleapis.com/auth/servicecontrol,https://www.googleapis.com/auth/service.management.readonly,https://www.googleapis.com/auth/logging.write,https://www.googleapis.com/auth/trace.append --tags=http-server,https-server --create-disk=auto-delete=yes,boot=yes,device-name=nome_vm,image=projects/ubuntu-os-cloud/global/images/ubuntu-2004-focal-v20240229,mode=rw,size=50,type=projects/id_projeto/zones/regiao_escolhida/diskTypes/pd-balanced --no-shielded-secure-boot --shielded-vtpm --shielded-integrity-monitoring --labels=goog-ec-src=vm_add-gcloud --reservation-affinity=any
+
+# COMO CONECTAR A VM VIA SHELL DO GCP
+gcloud compute ssh nome_vm --zone=regiao_escolhida
+
+
+# INSTALAR E CONFIGURAR SQL SERVER NO UBUNTU (executar cada comando separadamente):
+
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+sudo add-apt-repository "$(wget -qO- https://packages.microsoft.com/config/ubuntu/20.04/mssql-server-preview.list)"
+sudo apt update
+sudo apt upgrade
+sudo apt install -y mssql-server
+sudo /opt/mssql/bin/mssql-conf setup
+#escolha a versão express nro 3
+#cadastrar uma senha para o user sa
+sudo apt install curl
+curl https://packages.microsoft.com/keys/microsoft.asc | sudo apt-key add -
+curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list | sudo tee /etc/apt/sources.list.d/msprod.list
+sudo apt update
+sudo apt upgrade
+sudo apt install mssql-tools unixodbc-dev
+echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile
+sudo ls /opt/mssql-tools/bin/sqlcmd*
+sudo ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd
+
+# CONFIGURAÇÕES EXTRAS NO SQL SERVER
+sudo /opt/mssql/bin/mssql-conf set errorlog.numerrorlogs 6
+
+
+# INSTALAR E CONFIGURAR MYSQL NO UBUNTU (executar cada comando separadamente):
+sudo apt update
+sudo apt install mysql-server
+sudo mysql
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'senha';
+mysql -uroot -p'senha'
+CREATE DATABASE nome_bd;
+SET GLOBAL log_bin_trust_function_creators = 1;
+
+# CONFIGURAÇÕES EXTRAS NO MYSQL (ignorar bin.logs):
+sudo su
+cd /etc/mysql/mysql.conf.d
+nano mysqld.cnf
+#colar esses comandos dentro do arquivo abaixo de [mysqld]:
+binlog_expire_logs_seconds = 86400
+log_bin_trust_function_creators = 1
+log_bin = OFF
+
+# CRIANDO PASTAS NA VM
+cd /home/user/
+mkdir backups
+mkdir scripts
+mkdir outputs
+
+# PERMISSOES
+após criar VM, pare a instância > editar > Escopos de acesso > Permitir acesso completo a todas as APIs do Cloud
