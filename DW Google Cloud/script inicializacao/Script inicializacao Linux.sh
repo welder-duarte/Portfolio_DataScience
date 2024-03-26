@@ -3,11 +3,11 @@
 # OBSERVACOES:
 # 1 - Scripts e queries foram previamente carregados para Google Storage
 # 2 - Alguns dados foram omitidos neste documento por seguranca, mas os comandos seguem as documentacoes
-# 3 - Links dos backups no Saas foram coletados via web scraping com Selenium. Omitido por seguranca.
+# 3 - Links dos backups no Saas foram coletados via web scraping com Selenium. Omitidos por seguranca.
 # 4 - Esse script pode ser transcrito no campo de automacao ou carregado como metadados para ser executado na inicializacao da VM. 
 # Doc: https://cloud.google.com/compute/docs/instances/startup-scripts/linux?hl=pt-br
 
-# Carregando scripts SQL para VM
+# Carregando scripts para VM
 gcloud storage cp gs://gs_user/scripts/* /home/user/scripts
 
 # Executando downloads dos arquivos bkp (pasta backups criada previamente na VM. Links omitidos por seguranca)
