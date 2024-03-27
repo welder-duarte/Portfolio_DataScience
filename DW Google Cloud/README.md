@@ -7,7 +7,8 @@ operações através de arquivos de backups dos 2 bancos de dados utilizados: 1 
 de CRM. 
 Por não ter acesso aos próprios dados de forma prática, o gerenciamento dos resultados é ineficiente, com controles feitos em planilhas e alimentados manualmente, 
 dedicando-se muito tempo em tarefas que não agregam valor ao negócio (como preencher planilhas com dados do site por exemplo). 
-Esse projeto teve como principal objetivo criar um ETL [^2] automatizado dos dados, criando e disponibilizando uma camada de dados que possa ser utilizada para 
+
+Esse projeto teve como principal objetivo criar um ETL[^2] automatizado dos dados, criando e disponibilizando uma camada de dados que possa ser utilizada para 
 análises e acompanhamento das operações, via Power Bi, gerando valor ao negócio.
 
 #### *Técnicas e tecnologias utilizadas:*
