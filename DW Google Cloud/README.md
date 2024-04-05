@@ -1,4 +1,4 @@
-### **Criação de um DW com Google Cloud Plataform**
+### **Criação de um DataLake com Google Cloud Plataform**
 Esse projeto foi desenvolvido para atender às necessidades de uma empresa real.
 
 #### *O Problema:*
