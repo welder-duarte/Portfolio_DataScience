@@ -31,6 +31,12 @@ mais próxima ao centróide do k-means. Essas cidades "base" serão os ponto ini
 Dessa forma podemos aplicar TSP, para buscar uma rota mais otimizada  [^2] de modo que os gerentes possam visitar todas as 
 unidades de sua responsabilidade e retornar à sua cidade base (marcadores em preto no mapa). Podemos ver a sequência da rota encontrada nos marcadores do mapa.
 
+Legenda: 
+Rosa = Araçatuba, Cluster 0
+Verde = Ribeirão Preto, Cluster 1
+Azul = Botucatu, Cluster 2
+Vermelho = Sumaré, Cluster 3
+
 ![Mapa3 - Roteirizado](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/3c861dc8-1afb-4a5d-a9f0-712685639b78)
 
 Por fim, a distância total de deslocamento obtido para cada cluster, partindo de suas cidades "bases" e retornando à elas ao final.
