@@ -33,10 +33,9 @@ unidades de sua responsabilidade e retornar à sua cidade base (marcadores em pr
 
 *Legenda:*
 ``Azul = Botucatu, Cluster 0``
-``Rosa = Araçatuba, Cluster 0``
-``Verde = Ribeirão Preto, Cluster 1``
-
-``Vermelho = Sumaré, Cluster 3``
+``Vermelho = Sumaré, Cluster 1``
+``Verde = Ribeirão Preto, Cluster 2``
+``Rosa = Araçatuba, Cluster 3``
 
 ![Mapa3 - Roteirizado](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/3c861dc8-1afb-4a5d-a9f0-712685639b78)
 
