@@ -11,7 +11,7 @@ informações, sugerir como elaborar campeonatos de modo a engajar os usuários 
 
 #### *Dados*
 O teste possui 2 bases de dados:
-- ``Jogadores:`` Base com 10k de usuários distintos com: player_id, player_nome, caountry, last_login
+- ``Jogadores:`` Base com 10k de usuários distintos com: player_id, player_nome, country, last_login
 - ``Partidas:`` Base com 270,3k de partidas distintas com: partida_id, player_id, tempo_partida, gols_marcados, gols_recebidos e status (**V**itoria, **E**mpate, **D**errota)
 - Existe um gerador de dados aleatórios para a base de partidas, caso queiram aplicar esse teste mas com dados diferentes.
 
