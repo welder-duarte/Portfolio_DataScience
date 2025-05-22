@@ -64,23 +64,23 @@ de separar os grupos, dessa forma, podemos plotar um gráfico para nos ajudar a 
 
 ![Clusters 2D](https://github.com/welder-duarte/Portfolio_DataScience/assets/85957982/6f547863-201a-41d9-8e2f-8ea1c1e74c06)
 
-``Cluster 0: OS LIDERES``
+``Azul - Cluster 0: OS LIDERES``
 Menor grupo com 26% dos jogadores (2599 de 10k). Os jogadores desse grupo sabem o que estão fazendo.
 Seus números de gols marcados, tempo jogado e partidas não destoam dos demais grupos, mas apresentam a maior taxa de vitórias e 
 gols por partidas, mostrando que embora não joguem tanto, não estão para brincadeira e são eficientes na busca pela vitória.
 
 SUGESTÃO: Campeonatos curtos, modalidade mata-mata pode ser interessante para esse grupo.
 
-``Cluster 1: OS EXPERIENTES``
+``Rosa - Cluster 1: OS EXPERIENTES``
 Maior grupo de jogadores com 47,5% do total (4750 de 10k). 
 Esse grupo apresenta a maior media de gols marcados, entretanto não possuem a melhor taxa de vitória, ficando em 2º nesse quesito.
 Apresentam também a maior média de partidas disputadas, mostrando serem jogadores frequentes e familizarizados com o game.
 
 SUGESTÃO: Campeonatos longos com pontos corridos para esse grupo, onde o uso de estratégias possam ser usadas para garantir as vitórias.
 
-``Cluster 2: OS INICIANTES``
+``Amarelo - Cluster 2: OS INICIANTES``
 Grupo com 26,5% dos jogadores (2651 de 10k).
-Apresentam os piores números de gols marcados e vitórias, embora tenham disputado quase a mesma quantidade de partidas do grupo 0.
+Apresentam os piores números de gols marcados e vitórias, embora tenham disputado quase a mesma quantidade de partidas do cluster 0.
 
 SUGESTÃO: Por se tratar de um grupo de jogares iniciantes, campeonatos rápidos e partidas livres (amistosos) podem ser interessante 
 para adquirirem experiência no game.
