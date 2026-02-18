@@ -29,5 +29,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 RUN playwright install --with-deps chromium
 
-COPY src ./src
-CMD ["python", "src/scraper.py"]
+COPY . .
+ENV PYTHONPATH=/app
+CMD ["python", "src/main.py"]

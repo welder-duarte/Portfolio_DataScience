@@ -1,16 +1,11 @@
-import json, logging, pandas as pd, os
+import csv, pandas as pd, os
 from datetime import date, datetime
 from google.cloud import storage
 from playwright.sync_api import sync_playwright
 
 BUCKET_NAME = os.getenv("BUCKET_NAME", "seu-bucket")
 DESTINATION_PREFIX = "raw/funds_ranking"
-PROJECT_ID = os.getenv("PROJECT_ID") 
 
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
 
 def extract_ranking():
     with sync_playwright() as p:
@@ -24,22 +19,22 @@ def extract_ranking():
         response = response_info.value
         data = response.json()
         browser.close()
-        logging.info(f"Scraping finalizado")
+        print(f"Scraping finalizado")
 
         return data["data"]
 
 
 def transform_to_dataframe(data):
     df = pd.DataFrame(data)
-
-    df["scraping_date"] = date.today()
+    df["scraping_date"] = date.today().isoformat()
     df["ingestion_timestamp"] = datetime.now()
-    logging.info(f"Dataframe criado com sucesso - {df.shape[0]} registros")
+    df = df.fillna("").astype(str)
+    print(f"Dataframe criado com sucesso - {df.shape[0]} registros")
     return df
 
 
 def upload_to_gcs(df):
-    storage_client = storage.Client(project=PROJECT_ID)
+    storage_client = storage.Client()
     bucket = storage_client.bucket(BUCKET_NAME)
 
     destination_path = (
@@ -49,10 +44,10 @@ def upload_to_gcs(df):
     )
 
     blob = bucket.blob(destination_path)
-    csv_data = df.to_csv(index=False)
+    csv_data = df.to_csv(index=False,encoding='utf-8',quoting=1)
     blob.upload_from_string(csv_data, content_type="text/csv")
 
-    logging.info(f"Upload concluído: gs://{BUCKET_NAME}/{destination_path}")
+    print(f"Upload concluído: gs://{BUCKET_NAME}/{destination_path}")
 
 
 def main():

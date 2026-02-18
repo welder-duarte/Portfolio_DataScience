@@ -1,0 +1,42 @@
+RODAR TUDO NA PASTA SCRAPING
+#CRIAR ARTEFATO NO REGISTRY
+gcloud artifacts repositories create funds-repo --repository-format=docker --location=us-west1
+
+#CRIAR IMAGEM DOCKER
+gcloud builds submit --tag us-west1-docker.pkg.dev/apifundsexplorer/funds-repo/funds-job:latest .
+
+#CRIAR JOB NO CLOUD RUN
+gcloud run jobs create funds-pipeline-job --image us-west1-docker.pkg.dev/apifundsexplorer/funds-repo/funds-job:latest --region us-west1 --set-env-vars BUCKET_NAME=raw-api-funds-explorer --service-account funds-scraper-sa@apifundsexplorer.iam.gserviceaccount.com
+
+#LISTAR JOBS
+gcloud run jobs list --location=us-west1
+
+#RODAR JOB MANUALMENTE PARA TESTE
+gcloud run jobs execute funds-pipeline-job --region us-west1
+
+
+#CRIAR SERVICEACCOUNT PARA SCHEDULER
+gcloud iam service-accounts create scheduler-sa --project=apifundsexplorer --display-name="Scheduler Service Account"
+
+#PERMISSOES SCHEDULER
+gcloud projects add-iam-policy-binding apifundsexplorer --member="serviceAccount:scheduler-sa@apifundsexplorer.iam.gserviceaccount.com" --role="roles/run.developer"
+
+#CRIAR SCHEDULE
+gcloud scheduler jobs create http funds-explorer-daily-update --schedule="0 9 * * 1-5" --time-zone="America/Sao_Paulo" --uri="https://us-west1-run.googleapis.com/apis/run.googleapis.com/v1/namespaces/apifundsexplorer/jobs/funds-pipeline-job:run" --http-method=POST --oauth-service-account-email=scheduler-sa@apifundsexplorer.iam.gserviceaccount.com --location=us-west1
+
+#LISTAR SCHEDULES (VER SE FOI CRIADO)
+gcloud scheduler jobs list --location=us-west1
+
+#RODAR SCHEDULE MANUALMENTE
+gcloud scheduler jobs run funds-explorer-daily-update --location=us-west1
+
+gcloud run services add-iam-policy-binding funds-pipeline-job --member="serviceAccount:scheduler-sa@apifundsexplorer.iam.gserviceaccount.com" --role="roles/run.invoker" --region=us-west1
+
+
+#COMANDOS EXTRAS
+listar jobs executados
+gcloud run jobs executions list --region us-west1
+listar variaveis definidas
+gcloud run jobs describe funds-pipeline-job --region us-west1
+Atualizar conta de serviço:
+gcloud run jobs update funds-pipeline-job --region us-west1 --service-account funds-scraper-sa@apifundsexplorer.iam.gserviceaccount.com
