@@ -1,5 +1,5 @@
 --DDL CRIACAO SCHEMA RAW
-CREATE OR REPLACE TABLE apifundsexplorer.funds_explorer.funds_ranking_raw
+CREATE OR REPLACE TABLE apifundsexplorer.funds_explorer.raw_funds_ranking
 (
   post_id STRING,
   ticker STRING,

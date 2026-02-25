@@ -1,0 +1,98 @@
+
+version: 2
+
+models:
+  - name: silver_funds_ranking
+    description: "Tabela de transformacao e tipagem dos dados da raw"
+    columns:
+      - name: post_id
+        description: "Id original do fundo no site"
+      - name: post_title
+        description: "Sigla original do fundo no site"
+      - name: fundos
+        description: "Sigla do fundo (ticker)"
+        data_tests:
+          - unique
+          - not_null
+      - name: setor
+        description: "Setor de atividade do fundo"
+      - name: setor_slug
+        description: "Setor com texto amigável (geralmente hifenizado para motores de busca)"
+      - name: ultimo_dividendo
+        description: "R$ - Ultimo valor pago em forma de dividendo aos cotistas do fundo"
+      - name: dividend_yield
+        description: "% - Definido também como Dy, é um indicador da rentabilidade dos dividendos pagos por uma empresa ou Fundo Imobiliário (FII) em relação ao preço atual de suas ações ou cotas."
+      - name: dy_3m_med
+        description: "% - Percentual médio do DY dos ultimos 3 meses"
+      - name: dy_3m_acum
+        description: "% - Percentual acumulado do DY dos ultimos 3 meses"
+      - name: dy_6m_med
+        description: "% - Percentual médio do DY dos ultimos 6 meses"
+      - name: dy_6m_acum
+        description: "% - Percentual acumulado do DY dos ultimos 6 meses"
+      - name: dy_12m_med
+        description: "% - Percentual médio do DY dos ultimos 12 meses"
+      - name: dy_12m_acum
+        description: "% - Percentual acumulado do DY dos ultimos 12 meses"
+      - name: variacao_preco_m
+        description: "R$ - Variacao percentual de preco da cota em relação ao mes anterior"
+      - name: rentab_acum
+        description: "% - Rentabilidade do fundo acumulada"
+      - name: rentab_periodo
+        description: "% - Rentabilidade do fundo no mes vigente"
+      - name: preco_atual
+        description: "R$ - Preco atual do fundo (ultimo pregão)"
+      - name: preco_fechamento
+        description: "R$ - Preco anterior ao preco atual (penultimo pregão)"
+      - name: dy_ano
+        description: "% - Dividend_yield registrado no ano"
+      - name: ano
+        description: "# - Ano do registro"
+      - name: patrimonio_liquido
+        description: "R$ - PL de um FII é a soma de todos os bens (imóveis, títulos, caixa) subtraída das dívidas e taxas (passivos)"
+      - name: patrimonio
+        description: "R$ - Patrimonio total do fundo sendo soma de todos os bens (imóveis, títulos, caixa)"
+      - name: pvp
+        description: "R$ - (Preço/Valor Patrimonial Liquido) Indica se a cota está cara (ágio) ou barata (deságio)"
+      - name: p_vpa
+        description: "R$ - (Preço/Valor Patrimonial por Ação) Indica se a cota está cara (ágio) ou barata (deságio)"
+      - name: vpa_yield
+        description: "Patrimonio/DY = Indica rentabilidade real dos ativos do fundo"
+      - name: vpa
+        description: "R$ - Valor Patrimonial por Ação = Patrimonio/qtd cotas"
+      - name: vpa_change
+        description: "% - Variacao percentual do VPA em 12m"    
+      - name: vpa_rent
+        description: "R$ - Rentabilidade Patrimonial = mede a valorização que o patrimônio (VPA) teve em um determinado período (geralmente 12m)"
+      - name: vpa_rent_m
+        description: "R$ - Rentabilidade Patrimonial no periodo corrente"
+      - name: yield_vpa_3m_acum
+        description: "R$ - Soma total dos rendimentos distribuídos pelo fundo nos últimos 3 meses, dividida pelo valor patrimonial (VPA)"
+      - name: yield_vpa_3m
+        description: "R$ - Rendimento (dividendos) pago pelo fundo nos últimos 3 meses, mas calculado em relação ao Valor Patrimonial (VPA), e não em relação ao preço da cota na bolsa"
+      - name: yield_vpa_6m_acum
+        description: "R$ - Soma total dos rendimentos distribuídos pelo fundo nos últimos 6 meses, dividida pelo valor patrimonial (VPA)"
+      - name: yield_vpa_6m
+        description: "R$ - Rendimento (dividendos) pago pelo fundo nos últimos 6 meses, mas calculado em relação ao Valor Patrimonial (VPA)"
+      - name: yield_vpa_12m_acum
+        description: "R$ - Soma total dos rendimentos distribuídos pelo fundo nos últimos 12 meses, dividida pelo valor patrimonial (VPA)"
+      - name: yield_vpa_12m
+        description: "R$ - Rendimento (dividendos) pago pelo fundo nos últimos 12 meses, mas calculado em relação ao Valor Patrimonial (VPA)"
+      - name: liquidez_diaria
+        description: "R$ - Volume de negociações diarias"
+      - name: volatilidade
+        description: "R$ - Variação de preço de um ativo ao longo do tempo. Mede intensidade e frequência de oscilações (altas e baixas) dos preços de mercado das cotas"
+      - name: numero_cotista
+        description: "# - Numero de cotistas que participam do fundo"
+      - name: ativos
+        description: "# - Numero de ativos do fundo"
+      - name: tx_gestao
+        description: "% a.a - Taxa de gestão do fundo"
+      - name: tx_admin
+        description: "% a.aTaxa administrativa do fundo"
+      - name: tx_performance
+        description: "% a.aTaxa referente à performance do fundo"
+      - name: dt_scraping
+        description: "Data da coleta dos dados do site"
+      - name: dth_processamento
+        description: "Data e hora do processamento dos dados na tabela"

@@ -1,0 +1,11 @@
+funds_ranking_dbt:
+  target: prod
+  outputs:
+    prod:
+      type: bigquery
+      method: oauth
+      project: apifundsexplorer
+      dataset: funds_explorer
+      threads: 4
+      timeout_seconds: 300
+      location: us-west1

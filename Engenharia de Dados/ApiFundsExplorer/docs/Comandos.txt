@@ -40,3 +40,45 @@ listar variaveis definidas
 gcloud run jobs describe funds-pipeline-job --region us-west1
 Atualizar conta de serviço:
 gcloud run jobs update funds-pipeline-job --region us-west1 --service-account funds-scraper-sa@apifundsexplorer.iam.gserviceaccount.com
+
+
+
+
+#COMANDOS DBTRUN
+cd funds_ranking_dbt
+
+#IMAGEM DOCKER
+gcloud builds submit --tag gcr.io/apifundsexplorer/dbt-runner:latest
+
+#DEPLOY CLOUD RUN (HTTP - SERVICE)
+gcloud run deploy dbt-runner --image gcr.io/apifundsexplorer/dbt-runner:latest --region us-west1 --platform managed --allow-unauthenticated --service-account dbt-runner-sa@apifundsexplorer.iam.gserviceaccount.com --memory 1Gi --timeout 900
+
+#CRIANDO ACCOUNT SERVICE DBT
+gcloud iam service-accounts create dbt-runner-sa --display-name "DBT Runner Service Account"
+
+#CONCEDENDO PERMISSAO
+gcloud projects add-iam-policy-binding apifundsexplorer --member="serviceAccount:dbt-runner-sa@apifundsexplorer.iam.gserviceaccount.com" --role="roles/bigquery.dataEditor"
+gcloud projects add-iam-policy-binding apifundsexplorer --member="serviceAccount:dbt-runner-sa@apifundsexplorer.iam.gserviceaccount.com" --role="roles/bigquery.jobUser"
+gcloud storage buckets add-iam-policy-binding gs://raw-api-funds-explorer --member="serviceAccount:dbt-runner-sa@apifundsexplorer.iam.gserviceaccount.com" --role="roles/storage.objectViewer"
+
+#APOS DEPLOY E CORRECOES EU RODEI ISSO PARA TIRAR ACESSO PUBLICO DO RUN
+gcloud run services remove-iam-policy-binding dbt-runner --region us-west1 --member="allUsers"  --role="roles/run.invoker"
+
+
+gcloud run services add-iam-policy-binding dbt-runner --region us-west1 --member="serviceAccount:funds-scraper-sa@apifundsexplorer.iam.gserviceaccount.com" --role="roles/run.invoker"
+
+
+PROXIMOS PASSOS
+
+1 - automatizar dbt com cloud run
+2 - organizar estrutura do projeto (organizar melhor as pastas, renomear pasta dbt, etc) - OK
+3 - modificar py para criar somente raw no bq - OK
+4 - documentar tudo 
+5 - criar passo a passo para implementação do projeto
+6 - dropar tudo e recriar (estudando cada passo e verificando onde aparecerá erross)
+
+
+
+
+
+curl -X POST https://dbt-runner-187304865067.us-west1.run.app -H "Content-Type: application/json" -d '{}'

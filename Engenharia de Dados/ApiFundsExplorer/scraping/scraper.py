@@ -1,15 +1,25 @@
-import csv, pandas as pd, os
+import pandas as pd, os, requests
 from datetime import date, datetime
 from google.cloud import storage
 from playwright.sync_api import sync_playwright
+import google.auth
+import google.auth.transport.requests
+
+SQL_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "sql")
 
 BUCKET_NAME = os.getenv("BUCKET_NAME", "seu-bucket")
 DESTINATION_PREFIX = "raw/funds_ranking"
 
+credentials, _ = google.auth.default()
+auth_req = google.auth.transport.requests.Request()
+credentials.refresh(auth_req)
+id_token = credentials.token
+headers = {"Authorization": f"Bearer {id_token}"}
+
 
 def extract_ranking():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True,args=["--disable-blink-features=AutomationControlled"])
+        browser = p.chromium.launch(headless=True, args=["--no-sandbox","--disable-dev-shm-usage","--disable-blink-features=AutomationControlled"])
         context = browser.new_context()
         page = context.new_page()
 
@@ -54,6 +64,14 @@ def main():
     raw_data = extract_ranking()
     df = transform_to_dataframe(raw_data)
     upload_to_gcs(df)
+
+    #TRIGGER PARA DBT RUNNER
+    response = requests.post("https://dbt-runner-187304865067.us-west1.run.app", headers=headers, json={}, timeout=30)
+
+    if response.status_code != 200:
+        raise Exception("Falha ao acionar dbt runner")
+
+    print("Pipeline executado com sucesso")
 
 
 if __name__ == "__main__":

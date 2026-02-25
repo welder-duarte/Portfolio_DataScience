@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: funds_explorer
+    tables:
+      - name: funds_external
+        external:
+          location: "gs://raw-api-funds-explorer/raw/funds_explorer/*/funds.csv"
+          options:
+            format: csv
+            skip_leading_rows: 1
