@@ -2,17 +2,21 @@ RODAR TUDO NA PASTA SCRAPING
 #CRIAR ARTEFATO NO REGISTRY
 gcloud artifacts repositories create funds-repo --repository-format=docker --location=us-west1
 
-#CRIAR IMAGEM DOCKER
+#CRIAR IMAGEM DOCKER (BUILDAR)
 gcloud builds submit --tag us-west1-docker.pkg.dev/apifundsexplorer/funds-repo/funds-job:latest .
 
-#CRIAR JOB NO CLOUD RUN
+#CRIAR JOB NO CLOUD RUN (DEPLOY)
 gcloud run jobs create funds-pipeline-job --image us-west1-docker.pkg.dev/apifundsexplorer/funds-repo/funds-job:latest --region us-west1 --set-env-vars BUCKET_NAME=raw-api-funds-explorer --service-account funds-scraper-sa@apifundsexplorer.iam.gserviceaccount.com
+
+#UPDATE DEPLOY 
+gcloud run jobs update funds-pipeline-job --image us-west1-docker.pkg.dev/apifundsexplorer/funds-repo/funds-job:latest --region us-west1 --set-env-vars BUCKET_NAME=raw-api-funds-explorer --service-account funds-scraper-sa@apifundsexplorer.iam.gserviceaccount.com
 
 #LISTAR JOBS
 gcloud run jobs list --location=us-west1
 
 #RODAR JOB MANUALMENTE PARA TESTE
 gcloud run jobs execute funds-pipeline-job --region us-west1
+
 
 
 #CRIAR SERVICEACCOUNT PARA SCHEDULER
@@ -81,4 +85,34 @@ PROXIMOS PASSOS
 
 
 
-curl -X POST https://dbt-runner-187304865067.us-west1.run.app -H "Content-Type: application/json" -d '{}'
+#CRIAR LOGS
+gcloud logging metrics create dbt_error_metric --description="Count dbt failures in Cloud Run" --log-filter='resource.type="cloud_run_revision" AND resource.labels.service_name="dbt-runner" AND textPayload:"ERROR"'
+
+#CRIAR NOTIFICACAO
+gcloud beta monitoring channels create --display-name="DBT Alert Email" --type=email --channel-labels=email_address=welder.mduarte@gmail.com
+
+gcloud alpha monitoring policies create --display-name="DBT Failure Alert" --condition-display-name="DBT Error Detected" --condition-filter='metric.type="logging.googleapis.com/user/dbt_error_metric"' --condition-comparison=COMPARISON_GT --condition-threshold-value=0 --condition-duration=0s --notification-channels="projects/apifundsexplorer/notificationChannels/2756431854042249559"
+
+
+
+
+######### API 
+#CRIAR IMAGEM DOCKER
+gcloud builds submit --tag gcr.io/apifundsexplorer/funds-api
+
+#FAZER DEPLOY
+gcloud run deploy funds-api --image gcr.io/apifundsexplorer/funds-api --region us-west1 --allow-unauthenticated
+
+#LER LOGS
+gcloud run services logs read funds-api --region us-west1 --limit=50
+
+#DESCOBRIR QUAL SA ESTA SENDO USADA
+gcloud run services describe funds-api --region us-west1 --format="value(spec.template.spec.serviceAccountName)"
+
+#CONCEDENDO ACESSO
+gcloud projects add-iam-policy-binding apifundsexplorer --member="serviceAccount:187304865067-compute@developer.gserviceaccount.com" --role="roles/bigquery.dataViewer"
+
+
+
+
+

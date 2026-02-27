@@ -15,8 +15,8 @@ WITH ult_scraping AS (
 ), complemento_dados AS (
 
     SELECT
-        fundos,
-        setor,
+        UPPER(fundos)                                                                                                                                    AS fundos,
+        UPPER(REGEXP_REPLACE(NORMALIZE(setor, NFD),r'\pM',''))                                                                                           AS setor,
         scraping_date                                                                                                                                    AS dt_atualizacao,
         LAST_VALUE(ultimo_dividendo IGNORE NULLS) OVER (PARTITION BY fundos ORDER BY scraping_date ROWS BETWEEN UNBOUNDED PRECEDING AND current ROW)     AS ultimo_dividendo,
         LAST_VALUE(dividend_yield IGNORE NULLS) OVER (PARTITION BY fundos ORDER BY scraping_date ROWS BETWEEN UNBOUNDED PRECEDING AND current ROW)       AS dividend_yield,
