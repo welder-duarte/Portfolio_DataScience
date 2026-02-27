@@ -48,8 +48,8 @@ gcloud run jobs update funds-pipeline-job --region us-west1 --service-account fu
 
 
 
-#COMANDOS DBTRUN
-cd funds_ranking_dbt
+#DBT
+cd dbt_
 
 #IMAGEM DOCKER
 gcloud builds submit --tag gcr.io/apifundsexplorer/dbt-runner:latest

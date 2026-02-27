@@ -54,7 +54,7 @@ def get_funds():
             parameters = []
 
             if setor:
-                query += " AND setor = @setor"
+                query += " AND setor LIKE CONCAT('%', @setor, '%')"
                 parameters.append(bigquery.ScalarQueryParameter("setor", "STRING", setor))
 
             if fundo:
