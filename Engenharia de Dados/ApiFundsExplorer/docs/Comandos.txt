@@ -68,8 +68,10 @@ gcloud storage buckets add-iam-policy-binding gs://raw-api-funds-explorer --memb
 #APOS DEPLOY E CORRECOES EU RODEI ISSO PARA TIRAR ACESSO PUBLICO DO RUN
 gcloud run services remove-iam-policy-binding dbt-runner --region us-west1 --member="allUsers"  --role="roles/run.invoker"
 
-
 gcloud run services add-iam-policy-binding dbt-runner --region us-west1 --member="serviceAccount:funds-scraper-sa@apifundsexplorer.iam.gserviceaccount.com" --role="roles/run.invoker"
+
+#RODAR DBT RUNNER VIA CURL
+curl -X POST https://dbt-runner-187304865067.us-west1.run.app -H "Content-Type: application/json" -d "{}"
 
 
 PROXIMOS PASSOS

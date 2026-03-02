@@ -1,4 +1,4 @@
-ddbt_t:
+dbt_:
   target: prod
   outputs:
     prod:

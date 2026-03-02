@@ -66,10 +66,13 @@ def main():
     upload_to_gcs(df)
 
     #TRIGGER PARA DBT RUNNER
-    response = requests.post("https://dbt-runner-187304865067.us-west1.run.app", headers=headers, json={}, timeout=30)
+    response = requests.post("https://dbt-runner-187304865067.us-west1.run.app", headers=headers, json={}, timeout=900)
+
+    print("STATUS:", response.status_code)
+    print("BODY:", response.text)
 
     if response.status_code != 200:
-        raise Exception("Falha ao acionar dbt runner")
+        raise Exception(f"Falha ao acionar dbt runner: {response.text}")
 
     print("Pipeline executado com sucesso")
 
