@@ -113,7 +113,7 @@ gcloud iam service-accounts create cloud-build-sa --display-name="Cloud Build CI
 gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/artifactregistry.writer
 gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/run.admin
 gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
-
+gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/logging.logWriter
 
 PROXIMOS PASSOS
 
