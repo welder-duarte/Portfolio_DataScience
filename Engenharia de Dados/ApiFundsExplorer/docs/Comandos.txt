@@ -106,10 +106,13 @@ gcloud projects add-iam-policy-binding apifundsexplorer --member="serviceAccount
 
 ---------------------------------------
 #### CI/CD
-#CRIANDO ARTEFATO
-gcloud artifacts repositories create api-repo --repository-format=docker --location=us-west1 --description="Docker images for Project Api Funds Explorer"
+#CRIANDO CONTA SERVICO CLOUD BUILD
+gcloud iam service-accounts create cloud-build-sa --display-name="Cloud Build CI/CD Service Account"
 
-
+#CONCEDENDO PERMISSOES (ARTFACT/CLOUD RUN/ USERS OUTRAS SA)
+gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/artifactregistry.writer
+gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/run.admin
+gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
 
 
 PROXIMOS PASSOS
@@ -120,3 +123,7 @@ PROXIMOS PASSOS
 4 - documentar tudo 
 5 - criar passo a passo para implementação do projeto
 6 - dropar tudo e recriar (estudando cada passo e verificando onde aparecerá erross)
+
+
+
+gcloud projects add-iam-policy-binding $PROJECT_ID --member=serviceAccount:funds-scraper-sa@$PROJECT_ID.iam.gserviceaccount.com --role=roles/artifactregistry.writer
