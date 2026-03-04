@@ -1,0 +1,89 @@
+substitutions:
+  _REGION: us-west1
+  _PROJECT_ID: apifundsexplorer
+  _REPO: funds-repo
+
+steps:
+
+# SCRAPER (Cloud Run Job)
+- name: 'gcr.io/cloud-builders/docker'
+  dir: 'scraping'
+  args:
+    - build
+    - -t
+    - $_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/funds-job:$SHORT_SHA
+    - .
+
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - push
+    - $_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/funds-job:$SHORT_SHA
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - run
+    - jobs
+    - update
+    - funds-pipeline-job
+    - --image=$_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/funds-job:$SHORT_SHA
+    - --region=$_REGION
+    - --set-env-vars=BUCKET_NAME=raw-api-funds-explorer
+    - --service-account=funds-scraper-sa@$_PROJECT_ID.iam.gserviceaccount.com
+
+#DBT RUNNER (Service)
+- name: 'gcr.io/cloud-builders/docker'
+  dir: 'dbt_'
+  args:
+    - build
+    - -t
+    - gcr.io/$_PROJECT_ID/dbt-runner:$SHORT_SHA
+    - .
+
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - push
+    - gcr.io/$_PROJECT_ID/dbt-runner:$SHORT_SHA
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - run
+    - deploy
+    - dbt-runner
+    - --image=gcr.io/$_PROJECT_ID/dbt-runner:$SHORT_SHA
+    - --region=$_REGION
+    - --platform=managed
+    - --allow-unauthenticated
+    - --service-account=dbt-runner-sa@$_PROJECT_ID.iam.gserviceaccount.com
+    - --memory=1Gi
+    - --timeout=900
+
+#FUNDS API (Service)
+- name: 'gcr.io/cloud-builders/docker'
+  dir: 'api'
+  args:
+    - build
+    - -t
+    - gcr.io/$_PROJECT_ID/funds-api:$SHORT_SHA
+    - .
+
+- name: 'gcr.io/cloud-builders/docker'
+  args:
+    - push
+    - gcr.io/$_PROJECT_ID/funds-api:$SHORT_SHA
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+    - run
+    - deploy
+    - funds-api
+    - --image=gcr.io/$_PROJECT_ID/funds-api:$SHORT_SHA
+    - --region=$_REGION
+    - --allow-unauthenticated
+
+images:
+  - $_REGION-docker.pkg.dev/$_PROJECT_ID/$_REPO/funds-job:$SHORT_SHA
+  - gcr.io/$_PROJECT_ID/dbt-runner:$SHORT_SHA
+  - gcr.io/$_PROJECT_ID/funds-api:$SHORT_SHA

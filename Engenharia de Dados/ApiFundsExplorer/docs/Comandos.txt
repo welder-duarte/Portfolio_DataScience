@@ -74,18 +74,6 @@ gcloud run services add-iam-policy-binding dbt-runner --region us-west1 --member
 curl -X POST https://dbt-runner-187304865067.us-west1.run.app -H "Content-Type: application/json" -d "{}"
 
 
-PROXIMOS PASSOS
-
-1 - automatizar dbt com cloud run
-2 - organizar estrutura do projeto (organizar melhor as pastas, renomear pasta dbt, etc) - OK
-3 - modificar py para criar somente raw no bq - OK
-4 - documentar tudo 
-5 - criar passo a passo para implementação do projeto
-6 - dropar tudo e recriar (estudando cada passo e verificando onde aparecerá erross)
-
-
-
-
 
 #CRIAR LOGS
 gcloud logging metrics create dbt_error_metric --description="Count dbt failures in Cloud Run" --log-filter='resource.type="cloud_run_revision" AND resource.labels.service_name="dbt-runner" AND textPayload:"ERROR"'
@@ -116,5 +104,19 @@ gcloud projects add-iam-policy-binding apifundsexplorer --member="serviceAccount
 
 
 
+---------------------------------------
+#### CI/CD
+#CRIANDO ARTEFATO
+gcloud artifacts repositories create api-repo --repository-format=docker --location=us-west1 --description="Docker images for Project Api Funds Explorer"
 
 
+
+
+PROXIMOS PASSOS
+
+1 - automatizar dbt com cloud run - ok
+2 - organizar estrutura do projeto (organizar melhor as pastas, renomear pasta dbt, etc) - OK
+3 - modificar py para criar somente raw no bq - OK
+4 - documentar tudo 
+5 - criar passo a passo para implementação do projeto
+6 - dropar tudo e recriar (estudando cada passo e verificando onde aparecerá erross)
