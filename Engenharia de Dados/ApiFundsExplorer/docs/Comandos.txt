@@ -109,11 +109,13 @@ gcloud projects add-iam-policy-binding apifundsexplorer --member="serviceAccount
 #CRIANDO CONTA SERVICO CLOUD BUILD
 gcloud iam service-accounts create cloud-build-sa --display-name="Cloud Build CI/CD Service Account"
 
-#CONCEDENDO PERMISSOES (ARTFACT/CLOUD RUN/ USERS OUTRAS SA)
+#CONCEDENDO PERMISSOES (ARTFACT/CLOUD RUN/ USERS OUTRAS SA / ESCREVER LOGS / LER LOGS)
 gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/artifactregistry.writer
 gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/run.admin
 gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/iam.serviceAccountUser
 gcloud projects add-iam-policy-binding apifundsexplorer --member=serviceAccount:cloud-build-sa@apifundsexplorer.iam.gserviceaccount.com --role=roles/logging.logWriter
+
+gcloud projects add-iam-policy-binding apifundsexplorer --member=user:chacalduarte@gmail.com --role=roles/logging.viewer
 
 PROXIMOS PASSOS
 

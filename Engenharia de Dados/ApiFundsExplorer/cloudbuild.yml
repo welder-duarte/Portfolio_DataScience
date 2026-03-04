@@ -10,7 +10,7 @@ steps:
 
 # SCRAPER (Cloud Run Job)
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'scraping'
+  dir: 'engenharia de dados/Apifundsexplorer/scraping'
   args:
     - build
     - -t
@@ -36,7 +36,7 @@ steps:
 
 #DBT RUNNER (Service)
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'dbt_'
+  dir: 'engenharia de dados/Apifundsexplorer/dbt_'
   args:
     - build
     - -t
@@ -64,7 +64,7 @@ steps:
 
 #FUNDS API (Service)
 - name: 'gcr.io/cloud-builders/docker'
-  dir: 'api'
+  dir: 'engenharia de dados/Apifundsexplorer/api'
   args:
     - build
     - -t
