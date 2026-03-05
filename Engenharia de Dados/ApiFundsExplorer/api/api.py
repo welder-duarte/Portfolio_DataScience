@@ -35,9 +35,9 @@ def api_response(data=None, success=True, message=None, status=200):
 @app.route("/v1/fundos", methods=["GET"])
 def get_funds():
     limite = request.args.get("limite", default=600, type=int)
-    setor = normalize_string(request.args.get("setor"))
-    fundo = normalize_string(request.args.get("fundo"))
-    listar_fundos = request.args.get("listar_fundos", type=bool)
+    setor = normalize_string(request.args.get("setor")) if request.args.get("setor") else None
+    fundo = normalize_string(request.args.get("fundo")) if request.args.get("fundo") else None
+    listar_fundos = "listar_fundos" in request.args
 
     try:
         if listar_fundos:
