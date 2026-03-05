@@ -32,7 +32,7 @@ def api_response(data=None, success=True, message=None, status=200):
 
     return jsonify(response), status
 
-@app.route("/v1/funds", methods=["GET"])
+@app.route("/v1/fundos", methods=["GET"])
 def get_funds():
     limite = request.args.get("limite", default=600, type=int)
     setor = normalize_string(request.args.get("setor"))
@@ -58,7 +58,7 @@ def get_funds():
                 parameters.append(bigquery.ScalarQueryParameter("setor", "STRING", setor))
 
             if fundo:
-                query += " AND fundos = @fundo"
+                query += " AND fundos LIKE CONCAT('%', @fundo, '%')"
                 parameters.append(bigquery.ScalarQueryParameter("fundo", "STRING", fundo))
 
             query += " ORDER BY fundos LIMIT @limite"
