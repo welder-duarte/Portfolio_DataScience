@@ -95,15 +95,15 @@ Response
   "data": [
     {
       "fundos": "HGLG11",
-      "setor": "LOGISTICA"
+      "setor": "IMOVEIS INDUSTRIAIS E LOGISTICOS"
     },
     {
       "fundos": "MXRF11",
-      "setor": "PAPEL"
+      "setor": "PAPEIS"
     },
     {
       "fundos": "XPML11",
-      "setor": "SHOPPING"
+      "setor": "SHOPPINGS"
     }
   ],
 "success": true,
@@ -163,11 +163,11 @@ Response
 }
 ```
 
-Buscar por setores (completo ou parcial)
+Combinando parâmetros: Buscar por setores (parcial) + limitando a resposta
 
 Request
 ```python
-GET /v1/fundos?setor=BANC
+GET /v1/fundos?setor=banc&limite=1
 ```
 Response
 ```json
@@ -208,7 +208,8 @@ Response
       "vpa_rent": 10.9151,
       "vpa_rent_m": -0.418,
       "vpa_yield": 1.9979
-    }],
+    }
+  ],
   "success": true,
   "total": 1
 }
