@@ -16,13 +16,13 @@ O site mantém uma tabela denominada Ranking de Fundos, contendo diversas métri
 Esses dados são coletados, processados e disponibilizados através de uma API REST hospedada no Google Cloud Run.
 
 #### Fluxo:
-1 A coleta de dados é feita através de webscraping usando playwright.
-2 Os dados coletados são armazenados no Google Storage, como objetos em formato de csv.
-3 Os arquivos são lidos pelo DBT [^1], que fica responsável por transformar, testar e gerenciar as cargas incrementais dos dados nas camadas Raw, Silver e Gold (camada analítica).
-4 DBT persiste os dados no BiqQuery do GCP [^2].
-5 ApiRest responde às chamadas consumindo dados da camada gold do BigQuery.
-6 Tudo orquestrado pelo Cloud Run (Docker + Python) e Cloud Scheduler.
-7 CI/CD habilitado no Cloud Build.
+1. A coleta de dados é feita através de webscraping usando playwright.
+2. Os dados coletados são armazenados no Google Storage, como objetos em formato de csv.
+3. Os arquivos são lidos pelo DBT [^1], que fica responsável por transformar, testar e gerenciar as cargas incrementais dos dados nas camadas Raw, Silver e Gold (camada analítica).
+4. DBT persiste os dados no BiqQuery do GCP [^2].
+5. ApiRest responde às chamadas consumindo dados da camada gold do BigQuery.
+6. Tudo orquestrado pelo Cloud Run (Docker + Python) e Cloud Scheduler.
+7. CI/CD habilitado no Cloud Build.
 
 #### Técnicas e tecnologias utilizadas:
 Cloud:
