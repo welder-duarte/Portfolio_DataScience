@@ -44,7 +44,7 @@ BackEnd:
 
 #### Arquitetura:
 Projeto seguiu a arquitetura abaixo.
-![Proj Api](https://github.com/welder-duarte/Portfolio_Dados/blob/master/Engenharia%20de%20Dados/ApiFundsExplorer/docs/Arquitetura%20FundsApi.png?raw=true)
+![Proj Api](https://github.com/welder-duarte/Portfolio_Dados/blob/master/Engenharia%20de%20Dados/ApiFundsExplorer/docs/Arquitetura%20Api.png?raw=true)
 
 
 ### *Documentação API de Fundos Imobiliários:*
